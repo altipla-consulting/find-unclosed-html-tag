@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -36,7 +37,11 @@ func main() {
 		token := r.Token()
 		switch token.Type {
 		case html.ErrorToken:
-			log.Fatalf("token failed %s %#v", r.Err(), token)
+			if r.Err() == io.EOF {
+				return
+			}
+
+			log.Fatalf("token failed %s: %s", r.Err(), r.Raw())
 
 		case html.StartTagToken:
 			if isSelfClosed(token.Data) {
