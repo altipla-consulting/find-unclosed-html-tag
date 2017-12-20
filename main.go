@@ -84,6 +84,8 @@ func isSelfClosed(name string) bool {
 		return true
 	case "br":
 		return true
+	case "input":
+		return true
 	}
 
 	return false
