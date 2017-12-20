@@ -80,6 +80,10 @@ func isSelfClosed(name string) bool {
 		return true
 	case "img":
 		return true
+	case "hr":
+		return true
+	case "br":
+		return true
 	}
 
 	return false
