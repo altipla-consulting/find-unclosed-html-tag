@@ -38,6 +38,16 @@ func main() {
 		switch token.Type {
 		case html.ErrorToken:
 			if r.Err() == io.EOF {
+				if len(stack) > 0 {
+					expected := stack[len(stack) - 1]
+					log.Println("Found unclosed tag!")
+					log.Println("===================")
+					log.Printf("Expected: </%s>\n", expected.name)
+					log.Printf("Got: EOF\n")
+					log.Printf("Opened in: %s", expected.raw)
+					log.Printf("Line: %d", expected.line)
+					os.Exit(1)
+				}
 				return
 			}
 
